@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <title>Ariketa 6 - Kohetearen Animazioa Ebatzita</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        /* Espazioaren kutxa (Atzealdeko irudiarekin) */
+        #espazioa {
+            background-image: url('spacestars.jpg'); /* Ziurtatu irudi hau karpeta berean dagoela */
+            background-color: #000; /* Irudia kargatzen ez bada, beltza jarriko da */
+            width: 100%;
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #333;
+            margin-top: 15px;
+        }
+        /* Kohetearen irudia eta hasierako posizioa */
+        #kohete {
+            position: relative;
+            left: 50%;
+            top: 0px;
+            width: 70px;
+            transition: transform 0.1s; /* Koheteak norabide itxura apur bat izateko */
+        }
+        /* Laguntza testua espazio barruan */
+        .Argibidea {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            top: 15px;
+            left: 15px;
+            font-weight: bold;
+        }
+        /* Bueltatzeko botoiaren estiloa */
+        #btnHasiera {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #btnHasiera:hover {
+            background-color: #c9302c;
+        }
+        .teklak-zerrenda {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Kohetearen Mugimendu Ariketa (Ebazpena)</h2>
+    
+    <button id="btnHasiera">Hasierako lekura bueltatu</button>
+
+    <div class="teklak-zerrenda">
+        <strong>Kontrolak:</strong> Gezi-teklak (Mugimendu zuzenak) | <strong>Q tekla:</strong> Diagonal gora-ezkerrera | <strong>E tekla:</strong> Diagonal behera-eskuinera
+    </div>
+
+    <div id="espazioa">
+        <div class="Argibidea">Animatu: Sakatu gezia eta mugitu egingo da!</div>
+        <img id="kohete" src="rocket.png" alt="Kohetea">
+    </div>
+
+    <script>
+    $(document).ready(function() {
+
+        // 1. Teklatuko gertaerak harrapatu (keydown)
+        $(document).on('keydown', function(e) {
+            
+            switch(e.key) {
+                // OINARRIZKO MUGIMENDUAK (Gezi-teklak, 10px-ko jauziak, 100ms-ko iraupena)
+                case "ArrowLeft":
+                    $("#kohete").animate({ left: "-=10px" }, 100);
+                    break;
+                    
+                case "ArrowRight":
+                    $("#kohete").animate({ left: "+=10px" }, 100);
+                    break;
+                    
+                case "ArrowUp":
+                    $("#kohete").animate({ top: "-=10px" }, 100);
+                    break;
+                    
+                case "ArrowDown":
+                    $("#kohete").animate({ top: "+=10px" }, 100);
+                    break;
+
+                // MUGIMENDU DIAGONALAK
+                // 'q' edo 'Q' tekla: Gora eta Ezkerrera aldi berean (-10px top, -10px left)
+                case "q":
+                case "Q":
+                    $("#kohete").animate({ 
+                        top: "-=10px", 
+                        left: "-=10px" 
+                    }, 100);
+                    break;
+
+                // 'e' edo 'E' tekla: Behera eta Eskuinera aldi berean (+10px top, +10px left)
+                case "e":
+                case "E":
+                    $("#kohete").animate({ 
+                        top: "+=10px", 
+                        left: "+=10px" 
+                    }, 100);
+                    break;
+            }
+        });
+
+        // 2. HASIERAKO LEKURA BUELTATZEKO BOTOIA (click gertaera)
+        $("#btnHasiera").click(function() {
+            // Kohetea bere jatorrizko lekura eramaten du animazio leunago batekin (500ms)
+            $("#kohete").animate({ 
+                left: "50%", 
+                top: "0px" 
+            }, 500);
+        });
+
+    });
+    </script>
+
+</body>
+</html>
